@@ -19,8 +19,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Tables</a></li>
-                            <li class="breadcrumb-item"><a href="/tables">Basic Tables</a></li>
+                            <li class="breadcrumb-item"><a href="/tables">Tables</a></li>
+                            <li class="breadcrumb-item"><a href="/tables">Edit</a></li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +59,15 @@
                                                     <input type="text" name="name" class="form-control" value="{{ stu_obj.name }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="sex" class="form-control" value="{{ stu_obj.sex }}">
+                                                    <select name="sex" id="" class="form-control">
+                                                        {% if stu_obj.sex == "male" %} }
+                                                            <option selected value="male">male</option>
+                                                            <option value="female">female</option>
+                                                        {% else %}
+                                                            <option selected value="female">female</option>
+                                                            <option value="male">male</option>
+                                                        {% endif %}
+                                                    </select>
                                                 </td>
                                                 <td>
                                                     <input type="date" name="birthday" class="form-control" value="{{ stu_obj.birthday|date:"Y-m-d" }}">
