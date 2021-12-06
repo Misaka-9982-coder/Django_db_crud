@@ -20,7 +20,7 @@
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
                             <li class="breadcrumb-item"><a href="#!">Tables</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
+                            <li class="breadcrumb-item"><a href="/tables">Basic Tables</a></li>
                         </ul>
                     </div>
                 </div>
@@ -39,35 +39,42 @@
                                 <h5>Hover Table</h5>
                                 <span class="d-block m-t-5">use class <code>table-hover</code> inside table element</span>
                             </div>
+                            
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
+                                                <th>id</th>
+                                                <th>name</th>
+                                                <th>sex</th>
+                                                <th>birthdate</th>
+                                                <th>operate</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for stu in students %}
+
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                                <td>{{ stu.id }}</td>
+                                                <td>{{ stu.name }}</td>
+                                                <td>{{ stu.sex }}</td>
+                                                <td>{{ stu.birthday }}</td>
+                                                <td>
+                                                    <a href="stu/{{ stu.pk }}/change" class="btn btn-warning">编辑</a>
+                                                    <a href="stu/{{ stu.pk }}/delete" class="btn btn-danger">删除</a>
+                                                </td>
                                             </tr>
+                                            {% endfor %}
+
                                             <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>
+                                                    <a href="tables/stu/add/" class="btn btn-info">添加学生</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
