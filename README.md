@@ -1,11 +1,4 @@
-```bash
-$ git clone https://github.com/app-generator/django-datta-able.git
-$ cd django-datta-able
 ```
-
-## How to use it
-
-$
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
 $ source env/bin/activate
@@ -29,60 +22,20 @@ $
 $ # Access the web app in browser: http://127.0.0.1:8000/
 ```
 
-> Note: To use the app, please access the registration page and **create a new user**. After authentication, the app will unlock the private pages.
+designer ( <u>id</u>, name, price)
 
-<br />
+bag ( <u>id</u>, designer_id, type, color, already_rented )
 
-## Code-base structure
+customer ( <u>id</u>, phone#, address, name, email, card#, gender)
 
-The project is coded using a simple and intuitive structure presented below:
+lease ( <u>id</u>, bag_id, customer_id, start_date, back_date, insure_or_not )
 
-```bash
-< PROJECT ROOT >
-   |
-   |-- core/                               # Implements app configuration
-   |    |-- settings.py                    # Defines Global Settings
-   |    |-- wsgi.py                        # Start the app in production
-   |    |-- urls.py                        # Define URLs served by all apps/nodes
-   |
-   |-- apps/
-   |    |
-   |    |-- home/                          # A simple app that serve HTML files
-   |    |    |-- views.py                  # Serve HTML pages for authenticated users
-   |    |    |-- urls.py                   # Define some super simple routes  
-   |    |
-   |    |-- authentication/                # Handles auth routes (login and register)
-   |    |    |-- urls.py                   # Define authentication routes  
-   |    |    |-- views.py                  # Handles login and registration  
-   |    |    |-- forms.py                  # Define auth forms (login and register) 
-   |    |
-   |    |-- static/
-   |    |    |-- <css, JS, images>         # CSS files, Javascripts files
-   |    |
-   |    |-- templates/                     # Templates used to render pages
-   |         |-- includes/                 # HTML chunks and components
-   |         |    |-- navigation.html      # Top menu component
-   |         |    |-- sidebar.html         # Sidebar component
-   |         |    |-- footer.html          # App Footer
-   |         |    |-- scripts.html         # Scripts common to all pages
-   |         |
-   |         |-- layouts/                   # Master pages
-   |         |    |-- base-fullscreen.html  # Used by Authentication pages
-   |         |    |-- base.html             # Used by common pages
-   |         |
-   |         |-- accounts/                  # Authentication pages
-   |         |    |-- login.html            # Login page
-   |         |    |-- register.html         # Register page
-   |         |
-   |         |-- home/                      # UI Kit Pages
-   |              |-- index.html            # Index page
-   |              |-- 404-page.html         # 404 page
-   |              |-- *.html                # All other pages
-   |
-   |-- requirements.txt                     # Development modules - SQLite storage
-   |
-   |-- .env                                 # Inject Configuration via Environment
-   |-- manage.py                            # Start the app - Django default start script
-   |
-   |-- ************************************************************************
-```
+
+
+需求 ：
+      1.  通过设计师名字 检索出该设计师设计过多少包
+      2.  查询每个客户每个客户所有手袋的租赁时间。
+      3. 编写一个程序来计算和列出每个顾客的消费金额。放映这个包租出去的天数
+      4. 添加出租表和包表，租用日期是当前时间
+      5. 包被退回的时候，显示出租的总时长和总金额，包可以再次被出租
+      6. 为所有异常设计并显示适当的消息
