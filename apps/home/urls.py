@@ -13,9 +13,9 @@ urlpatterns = [
     path('tables', views.show, name="show"),
     
     
-    re_path('stu/add/$', views.add_stu),
-    re_path('stu/(\d+)/delete', views.delete_stu),
-    re_path('stu/(\d+)/change', views.change_stu),
+    # re_path('stu/add/$', views.add_stu),
+    # re_path('stu/(\d+)/delete', views.delete_stu),
+    # re_path('stu/(\d+)/change', views.change_stu),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
