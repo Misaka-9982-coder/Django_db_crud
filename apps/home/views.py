@@ -2,6 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+from django.db.models.base import Model
 from django.shortcuts import render, redirect
 from django import template
 from django.contrib.auth.decorators import login_required
@@ -9,16 +10,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from apps.home.models import *
-import MySQLdb
-
-con = MySQLdb.connect(
-    host='127.0.0.1',
-    user='root',
-    passwd='123456',
-    db='lab4',
-    port=3306,
-    charset='utf8')
-
 
 
 @login_required(login_url="/login/")
@@ -74,22 +65,43 @@ def index(request):
 
 '''展示数据表'''
 @login_required(login_url="/login/")
-def show(request):
-    cur = con.cursor()
-    cur.callproc("show_columns_from_table", ("bag",))
-    data = cur.fetchall()
-    t_name = []
-    for i in data:
-        t_name.append(i[0])
-    cur.close()
-    cur = con.cursor()
-    cur.callproc("show_table", ("bag",))
-    data = cur.fetchall()
-    t_body = []
-    for i in data:
-        t_body.append(i)
-    return render(request, 'home/tables.html', locals())
+def show_bags(request):
+    data = Bag._meta.fields
+    columns = [data[i].name for i in range(len(data))]
+    objs = Bag.objects.all()
+    return render(request, 'home/bags_table.html', locals())
 
+
+@login_required(login_url="/login/")
+def show_bags(request):
+    data = Bag._meta.fields
+    columns = [data[i].name for i in range(len(data))]
+    objs = Bag.objects.all()
+    return render(request, 'home/bags_table.html', locals())
+
+
+@login_required(login_url="/login/")
+def show_designers(request):
+    data = Designer._meta.fields
+    columns = [data[i].name for i in range(len(data))]
+    objs = Designer.objects.all()
+    return render(request, 'home/designers_table.html', locals())
+
+
+@login_required(login_url="/login/")
+def show_customers(request):
+    data = Customer._meta.fields
+    columns = [data[i].name for i in range(len(data))]
+    objs = Customer.objects.all()
+    return render(request, 'home/customers_table.html', locals())
+
+
+@login_required(login_url="/login/")
+def show_rentals(request):
+    data = Rentals._meta.fields
+    columns = [data[i].name for i in range(len(data))]
+    objs = Rentals.objects.all()
+    return render(request, 'home/rentals_table.html', locals())
 
 
 '''分页'''

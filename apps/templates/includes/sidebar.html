@@ -26,14 +26,28 @@
                 <li class="nav-item pcoded-menu-caption">
                     <label>Table</label>
                 </li>
-                <li data-username="Table bootstrap datatable footable" 
-                    class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
-                    <a href="/tables" class="nav-link ">
+                
+                <li data-username="Table bootstrap datatable footable" class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link ">
                         <span class="pcoded-micon">
                             <i class="feather icon-server"></i>
                         </span>
-                        <span class="pcoded-mtext">Table</span>
+                        <span class="pcoded-mtext">Tables</span>
                     </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{% if 'bag_tables' in segment %} active {% endif %}">
+                            <a href="/bags_table" class="">Bag</a>
+                        </li>
+                        <li class="">
+                            <a href="/designers_table" class="">Designer</a>
+                        </li>
+                        <li class="">
+                            <a href="/customers_table" class="">Customer</a>
+                        </li>
+                        <li class="">
+                            <a href="/rentals_table" class="">Rentals</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Chart</label>

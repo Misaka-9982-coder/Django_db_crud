@@ -35,7 +35,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Hover Table</h5>
+                                <h5>Designers</h5>
                                 <span class="d-block m-t-5">use class <code>table-hover</code> inside table element</span>
                             </div>
                             
@@ -52,15 +52,9 @@
                                         <tbody>
                                         {% for obj in objs %}
                                             <tr>
-                                                <td>{{ obj.bid }}</td>
-                                                <td>{{ obj.type }}</td>
-                                                <td>{{ obj.color }}</td>
-                                                <td>{{ obj.did.name }}</td>
-                                                {% if obj.already_rented == 1 %}
-                                                <td> 已经出租 </td>
-                                                {% else %}
-                                                <td> 可以租借 </td>
-                                                {% endif %}
+                                                <td>{{ obj.did }}</td>
+                                                <td>{{ obj.name }}</td>
+                                                <td>{{ obj.price }} </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody> 

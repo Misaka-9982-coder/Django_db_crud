@@ -10,7 +10,10 @@ from apps.home import views
 urlpatterns = [
     # The home page
     path('', views.index, name='home'),
-    path('tables', views.show, name="show"),
+    path('bags_table', views.show_bags, name="show_bag"),
+    path('designers_table', views.show_designers, name="show_designers"),
+    path('customers_table', views.show_customers, name="show_customers"),
+    path('rentals_table', views.show_rentals, name="show_rentals"),
     
     
     # re_path('stu/add/$', views.add_stu),

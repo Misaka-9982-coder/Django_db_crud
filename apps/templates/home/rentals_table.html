@@ -35,7 +35,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Hover Table</h5>
+                                <h5>Designers</h5>
                                 <span class="d-block m-t-5">use class <code>table-hover</code> inside table element</span>
                             </div>
                             
@@ -43,23 +43,25 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
-                                            {% for column in columns %}
-                                            <th>
-                                                {{ column }}
-                                            </th>
-                                            {% endfor %}
+                                            <th>rid</th>
+                                            <th>客户姓名</th>
+                                            <th>包包类型</th>
+                                            <th>租借日期</th>
+                                            <th>应还日期</th>
+                                            <th>是否购买保险</th>
                                         </thead>
                                         <tbody>
                                         {% for obj in objs %}
                                             <tr>
-                                                <td>{{ obj.bid }}</td>
-                                                <td>{{ obj.type }}</td>
-                                                <td>{{ obj.color }}</td>
-                                                <td>{{ obj.did.name }}</td>
-                                                {% if obj.already_rented == 1 %}
-                                                <td> 已经出租 </td>
+                                                <td>{{ obj.rid }}</td>
+                                                <td>{{ obj.cid.first_name }} {{obj.cid.last_name}}</td>
+                                                <td>{{ obj.bid.type }} </td>
+                                                <td>{{ obj.date_rented }} </td>
+                                                <td>{{ obj.date_returned }} </td>
+                                                {% if obj.optional_insurance == 1 %}
+                                                <td> 是 </td>
                                                 {% else %}
-                                                <td> 可以租借 </td>
+                                                <td> 否 </td>
                                                 {% endif %}
                                             </tr>
                                         {% endfor %}
