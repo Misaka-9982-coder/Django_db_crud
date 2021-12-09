@@ -2,6 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+from django.db import connection
 from django.shortcuts import render, redirect
 from django import template
 from django.contrib.auth.decorators import login_required
@@ -9,17 +10,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from apps.home.models import *
-import MySQLdb
-
-con = MySQLdb.connect(
-    host='127.0.0.1',
-    user='root',
-    passwd='123456',
-    db='lab4',
-    port=3306,
-    charset='utf8')
-
-
 
 @login_required(login_url="/login/")
 def index(request):
@@ -75,14 +65,15 @@ def index(request):
 '''展示数据表'''
 @login_required(login_url="/login/")
 def show(request):
-    cur = con.cursor()
+    cur = connection.cursor()
     cur.callproc("show_columns_from_table", ("bag",))
+    connection.connection.commit()
     data = cur.fetchall()
     t_name = []
     for i in data:
         t_name.append(i[0])
     cur.close()
-    cur = con.cursor()
+    cur = connection.cursor()
     cur.callproc("show_table", ("bag",))
     data = cur.fetchall()
     t_body = []

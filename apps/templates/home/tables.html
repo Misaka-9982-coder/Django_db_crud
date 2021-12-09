@@ -44,17 +44,17 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                            {% for i in t_name %}
-                                                <td> {{i}} </td>
+                                            {% for column in t_name %}
+                                                <td> {{ column }} </td>
                                             {% endfor %}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for i in t_body %}
+                                            {% for columns in t_body %}
 
                                             <tr>
-                                            {% for j in i %}
-                                                <td> {{j}} </td>
+                                            {% for column in columns %}
+                                                <td> {{ column }} </td>
                                             {% endfor %}
                                             </tr>
                                             {% endfor %}
