@@ -1,4 +1,21 @@
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '数据库名称',
+        'USER': '用户名',
+        'PASSWORD': '密码',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 ```
+
+
+
+```
+$ pip install virtualenv
+$
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
 $ source env/bin/activate

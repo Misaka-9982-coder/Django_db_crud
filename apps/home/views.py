@@ -1,7 +1,4 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
+
 from django.db.models.base import Model
 from django.shortcuts import render, redirect
 from django import template
