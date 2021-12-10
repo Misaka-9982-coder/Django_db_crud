@@ -1,3 +1,5 @@
+在`setting.py`中修改默认数据库
+
 ```python
 DATABASES = {
     'default': {
@@ -11,7 +13,9 @@ DATABASES = {
 }
 ```
 
+加载`lab4.sql`文件导入数据库
 
+配置`Django`环境
 
 ```
 $ pip install virtualenv
@@ -27,6 +31,8 @@ $
 $ pip3 install -r requirements.txt
 $
 $ # Create tables
+$ python manage.py inspectdb > models.py
+$ # 将原有apps 中的 models.py 替换为 上方生成的models.py 文件
 $ python manage.py makemigrations
 $ python manage.py migrate
 $
@@ -65,20 +71,27 @@ lease ( <u>id</u>, bag_id, customer_id, start_date, back_date, insure_or_not )
 ```sql
 show_all_tables()					--返回所有表的表名
 show_table(tableName) 				--传入表名，返回指定表的数据
-show_columns_from_table(in tableName varchar(30))
+show_columns_from_table(tableName)
 									--传入表名，返回指定表的表头字段
 get_customers_id()					--获取所有客户id
 get_designers_name()				--获取所有设计师名字
-bag_by_designer(in designer varchar(30))
-									--传入设计师名字，获取指定设计师设计的背包
+bag_by_designer(designer)			--传入设计师名字，获取指定设计师设计的背包
 best_customers()					--按照客户租赁所有包包的总天数排序显示客户
-report_customer_amount(in customer_id int(32))
-									--传入用户id，根据用户id计算用户每个租赁交易应支付金额
-report_customer_totalCost(in customer_id int(32))
+report_customer_amount(customer_id)	--传入用户id，根据用户id计算用户每个租赁交易应支付金额
+report_customer_totalCost(customer_id)
 									--传入用户id，根据用户id计算用户所有租赁交易应支付总额
-add_rentals(customerId int(32), bagId int(32), optionalInsurance tinyint(1), daysOfRent int(10))
+add_rentals(customerId, bagId, optionalInsurance, daysOfRent)
 									--传入用户id，包包id，是否支付保险，租用天数，添加一笔租赁交易
-add_bag(bagType varchar(30), bagColor varchar(10), bagDesigner varchar(30))
+add_bag(bagType, bagColor, bagDesigner)
 									--传入包包类型，颜色，设计者，添加一个可以租赁的包包
+add_designer(dname, price)			--传入设计师的名字， 每个包包的价格， 添加一个设计师
+add_customer(lname,fname, addr, pnum ,email, cnum, gender)
+									--传入客户姓氏，名字, 地址，电话号码，邮箱地址，信用卡号码，性别
+```
+    
+#### 触发器设计
+
+```
+returnBag 
 ```
 

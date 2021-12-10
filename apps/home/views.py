@@ -1,4 +1,8 @@
+import django
 
+
+from .forms import SignUpForm
+from django.db import connection
 from django.db.models.base import Model
 from django.shortcuts import render, redirect
 from django import template
@@ -11,10 +15,32 @@ from apps.home.models import *
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
+    cur = connection.cursor()
+    
+    cur.callproc('get_total_sales')
+    data = cur.fetchall()
+    total = data[0][0]
 
-    html_template = loader.get_template('home/index.html')
-    return HttpResponse(html_template.render(context, request))
+    cur.callproc('get_cnt_table', ('rentals',))
+    data = cur.fetchall()
+    rent_amount = data[0][0]
+
+    cur.callproc('get_cnt_table', ('designer',))
+    data = cur.fetchall()
+    designer_cnt = data[0][0]
+
+    cur.callproc('get_cnt_table', ('bag',))
+    data = cur.fetchall()
+    bag_cnt = data[0][0]
+
+    cur.callproc('get_cnt_table', ('customer',))
+    data = cur.fetchall()
+    customer_cnt = data[0][0]
+
+    cus_obj = Customer.objects.all()
+    
+    return render(request, 'home/index.html', locals())
+    # return HttpResponse(html_template.render(data, context, request))
 
 
 
@@ -69,6 +95,7 @@ def show_bags(request):
     return render(request, 'home/bags_table.html', locals())
 
 
+
 @login_required(login_url="/login/")
 def show_bags(request):
     data = Bag._meta.fields
@@ -77,12 +104,14 @@ def show_bags(request):
     return render(request, 'home/bags_table.html', locals())
 
 
+
 @login_required(login_url="/login/")
 def show_designers(request):
     data = Designer._meta.fields
     columns = [data[i].name for i in range(len(data))]
     objs = Designer.objects.all()
     return render(request, 'home/designers_table.html', locals())
+
 
 
 @login_required(login_url="/login/")
@@ -99,6 +128,33 @@ def show_rentals(request):
     columns = [data[i].name for i in range(len(data))]
     objs = Rentals.objects.all()
     return render(request, 'home/rentals_table.html', locals())
+
+
+
+
+def customer_register(request):
+    msg = None
+    success = False
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            msg = 'User created - please <a href="/login">login</a>.'
+            success = True
+
+            return redirect("/login/")
+
+        else:
+            msg = 'Form is not valid'
+    else:
+        form = SignUpForm()
+
+    return render(request, "home/register.html", {"form": form, "msg": msg, "success": success})
+
+
+
 
 
 '''分页'''

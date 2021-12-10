@@ -127,9 +127,9 @@ INSERT INTO rentals (cid, bid, date_rented, date_returned, optional_insurance) v
 */
 delimiter //
 create procedure show_all_tables()
-    begin
-        show tables;
-    end //
+begin
+    show tables;
+end //
 delimiter;
 
 
@@ -141,12 +141,12 @@ delimiter;
 */
 delimiter //
 create procedure show_columns_from_table(in tableName varchar(30))
-    begin
-        set @sql = concat('show columns from ', tableName);
-        prepare stmt from @sql;
-        execute stmt;
-        deallocate prepare stmt;
-    end; //
+begin
+    set @sql = concat('show columns from ', tableName);
+    prepare stmt from @sql;
+    execute stmt;
+    deallocate prepare stmt;
+end; //
 delimiter;
 
 -- call show_columns_from_table('bag')
@@ -160,37 +160,56 @@ delimiter;
 */
 delimiter //
 create procedure show_table(in tableName varchar(30))
-    begin
-        set @sql = concat('select * from ', tableName);
-        prepare stmt from @sql;
-        execute stmt;
-        deallocate prepare stmt;
-    end; //
+begin
+    set @sql = concat('select * from ', tableName);
+    prepare stmt from @sql;
+    execute stmt;
+    deallocate prepare stmt;
+end; //
 delimiter;
 
 
 
 /*
+    存储过程
+    计算指定表中有多少行数据
+    传入参数为表名
+*/
+delimiter //
+create procedure get_cnt_table(in tableName varchar(30))
+begin
+    set @sql = concat('select count(*) from ', tableName);
+    prepare stmt from @sql;
+    execute stmt;
+    deallocate prepare stmt;
+end; //
+delimiter;
+
+
+
+/*
+    存储过程
     获取所有客户 id
  */
 delimiter //
 create procedure get_customers_id()
-    begin
-        select cid from customer;
-    end; //
+begin
+    select cid from customer;
+end; //
 delimiter;
 
 
 
 
-/*
+/*  
+    存储过程
     获取所有设计师的名字
  */
 delimiter //
 create procedure get_designers_name()
-    begin
-        select name from designer;
-    end; //
+begin
+    select name from designer;
+end; //
 delimiter;
 
 
@@ -202,16 +221,16 @@ delimiter;
 */
 delimiter //
 create procedure bag_by_designer(in designer varchar(30))
-    begin
-        select 
-            type as 'Name', 
-            color as 'Color', 
-            d.name as 'Manufacturer' 
-        from bag as b
-        left join designer as d
-        on b.did = d.did
-        where d.name = designer;
-    end //
+begin
+    select 
+        type as 'Name', 
+        color as 'Color', 
+        d.name as 'Manufacturer' 
+    from bag as b
+    left join designer as d
+    on b.did = d.did
+    where d.name = designer;
+end //
 delimiter;
 
 -- call bag_by_designer('Coach');
@@ -224,20 +243,20 @@ delimiter;
 */
 delimiter //
 create procedure best_customers()
-    begin 
-        select 
-            last_name as 'Last Name',
-            first_name as 'First Name',
-            address as 'Address',
-            phone as 'Telephone',
-            ifnull(sum(datediff( date_returned, date_rented)), 0) 
-                as 'Total Length of Rentals' 
-        from customer as c 
-        left join rentals as r 
-        on c.cid = r.cid 
-        group by c.cid 
-        order by `Total Length of Rentals` desc;
-    end //
+begin 
+    select 
+        last_name as 'Last Name',
+        first_name as 'First Name',
+        address as 'Address',
+        phone as 'Telephone',
+        ifnull(sum(datediff( date_returned, date_rented)), 0) 
+            as 'Total Length of Rentals' 
+    from customer as c 
+    left join rentals as r 
+    on c.cid = r.cid 
+    group by c.cid 
+    order by `Total Length of Rentals` desc;
+end //
 delimiter;
 
 -- call best_customers();
@@ -251,25 +270,26 @@ delimiter;
 */
 delimiter //
 create procedure report_customer_amount(in customer_id int(32))
-    begin
-        select 
-            c.last_name as 'Last Name',
-            c.first_name as 'First Name',
-            concat(c.first_name, ' ', c.last_name) as "Name",
-            d.name as 'Manufacturer',
-            b.type as 'Name',
-            (d.price + r.optional_insurance) * datediff( r.date_returned, r.date_rented) as 'Cost'
-        from rentals as r 
-        left join customer as c 
-        on r.cid = c.cid 
-        left join bag as b 
-        on r.bid = b.bid 
-        left join designer as d 
-        on d.did = b.did 
-        where r.cid = customer_id
-        order by Cost desc;
-        
-    end //
+begin
+    select 
+        c.last_name as 'Last Name',
+        c.first_name as 'First Name',
+        concat(c.first_name, ' ', c.last_name) as "Name",
+        d.name as 'Manufacturer',
+        b.type as 'Name',
+        (d.price + r.optional_insurance) 
+            * datediff( r.date_returned, r.date_rented) as 'Cost'
+    from rentals as r 
+    left join customer as c 
+    on r.cid = c.cid 
+    left join bag as b 
+    on r.bid = b.bid 
+    left join designer as d 
+    on d.did = b.did 
+    where r.cid = customer_id
+    order by Cost desc;
+    
+end //
 delimiter;
 
 -- call report_customer_amount(17);
@@ -283,25 +303,47 @@ delimiter;
 */
 delimiter //
 create procedure report_customer_totalCost(in customer_id int(32))
-    begin
-        select 
-            c.last_name as 'Last Name',
-            c.first_name as 'First Name',
-            concat(c.first_name, ' ', c.last_name) as "Name",
-            sum((d.price + r.optional_insurance) * datediff( r.date_returned, r.date_rented)) as totalCost
-        from rentals as r 
-        left join customer as c 
-        on r.cid = c.cid 
-        left join bag as b 
-        on r.bid = b.bid 
-        left join designer as d 
-        on d.did = b.did 
-        where r.cid = customer_id;
-        
-    end //
+begin
+    select 
+        c.last_name as 'Last Name',
+        c.first_name as 'First Name',
+        concat(c.first_name, ' ', c.last_name) as "Name",
+        sum((d.price + r.optional_insurance) 
+            * datediff( r.date_returned, r.date_rented)) as totalCost
+    from rentals as r 
+    left join customer as c 
+    on r.cid = c.cid 
+    left join bag as b 
+    on r.bid = b.bid 
+    left join designer as d 
+    on d.did = b.did 
+    where r.cid = customer_id;
+end //
 delimiter;
 
 -- call report_customer_totalCost(17);
+
+
+
+/*
+    存储过程
+    获取所有交易的租赁总额
+*/
+delimiter //
+create procedure get_total_sales()
+begin
+    select 
+        sum((d.price + r.optional_insurance) 
+            * datediff( r.date_returned, r.date_rented)) as total_sales
+    from rentals as r 
+    left join customer as c 
+    on r.cid = c.cid 
+    left join bag as b 
+    on r.bid = b.bid 
+    left join designer as d 
+    on d.did = b.did;
+end //
+delimiter;
 
 
 
@@ -312,11 +354,11 @@ delimiter;
 */
 delimiter //
 create  procedure add_rentals(customerId int(32), bagId int(32), optionalInsurance tinyint(1), daysOfRent int(10))
-    begin
+begin
     insert into rentals(cid, bid, date_rented, date_returned, optional_insurance) 
     values (customerId, bagId, curdate(), curdate() + daysOfRent, optionalInsurance);
     update bag set already_rented = true where bid = bagId;
-    end //
+end //
 delimiter;
 
 -- call add_rentals(13, 101, 1, 8);
@@ -331,7 +373,6 @@ delimiter;
 delimiter //
 create procedure add_bag(bagType varchar(30), bagColor varchar(10), bagDesigner varchar(30))
 begin
-    
     insert into bag( type, color, did) 
     values ( bagType, bagColor, (select did 
                                 from designer
@@ -367,7 +408,6 @@ create procedure add_customer(lname varchar(32),
     fname varchar(32), addr varchar(128), pnum varchar(32),
     email varchar(64), cnum varchar(32), gender varchar(10))
 begin
-    
     insert into customer( last_name, first_name, address, phone, email, card, gender) 
     values (lname, fname, addr, pnum, email, cnum, gender);
 end //
@@ -377,29 +417,31 @@ delimiter;
 
 /*
     触发器
+    创建会话变量 totalDays，bill
     totalDays   记录总的租赁天数
     bill        记录租赁期间应付账单金额
     update      语句更新包的租赁状态
+    退回包包后可以通过执行 select 语句获取会话变量的值
 */
 delimiter //
 create trigger returnBag after update on rentals for each row 
-    begin 
-        declare pricePerday double(10,2);
-        set @totalDays = 0;
-        set @bill = 0.00;
-        if new.date_returned then 
-            select 
-                price into pricePerday 
-                from bag as b, designer d
-                where b.bid = new.bid
-                and b.did = d.did;
-            select 
-                datediff(new.date_returned, new.date_rented) into @totalDays;
-            select 
-                (pricePerday + new.optional_insurance) * @totalDays into @bill;
-        end if;
-        update bag set already_rented = false where bid = new.bid;
-    end //
+begin 
+    declare pricePerday double(10,2);
+    set @totalDays = 0;
+    set @bill = 0.00;
+    if new.date_returned then 
+        select 
+            price into pricePerday 
+            from bag as b, designer d
+            where b.bid = new.bid
+            and b.did = d.did;
+        select 
+            datediff(new.date_returned, new.date_rented) into @totalDays;
+        select 
+            (pricePerday + new.optional_insurance) * @totalDays into @bill;
+    end if;
+    update bag set already_rented = false where bid = new.bid;
+end //
 delimiter;
 
 -- update rentals set date_returned = current_date where rid=18;

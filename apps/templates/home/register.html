@@ -22,26 +22,25 @@
                     </h3>
 
                     <span class="mb-0 text-muted">
-                        Add your credentials
+                        {% if msg %}
+                            {{ msg | safe }}
+                        {% else %}
+                            Add your credentials
+                        {% endif %} 
                     </span>
 
                     <br />
                     <br />
 
                     <!-- Hide the form on success -->
-                    <form role="form" action="/">
-
+                    <form role="form" method="post" action="">
+                        {% csrf_token %} 
+                        {% for obj in form %}
                         <div class="input-group mb-3">
-                            <input class="form-control" placeholder="Username">
+                            {{ obj }} 
                         </div>
-                        
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Email">
-                        </div>
-
-                        <div class="input-group mb-4">
-                            <input type="password" class="form-control" placeholder="password">
-                        </div>
+                        <span class="text-error">{{ obj.errors }}</span>
+                        {% endfor %}
                         
                         <div class="form-group text-left">
                             <div class="checkbox checkbox-fill d-inline">
@@ -53,7 +52,7 @@
 
                     </form>
                     
-                    <p class="mb-0 text-muted">Already have an account? <a href="/login.html" >Login</a></p>
+                    <p class="mb-0 text-muted">Already have an account? <a href="/" >Turn Back</a></p>
                     <br />
                 </div>
             </div>

@@ -16,76 +16,71 @@
                 <div class="page-wrapper">
                     <!-- [ Main Content ] start -->
                     <div class="row">
-                        <!--[ daily sales section ] start-->
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card daily-sales">
+                        <div class='col-md-3'>
+                            <div class="card">
                                 <div class="card-block">
-                                    <h6 class="mb-4">Daily Sales</h6>
                                     <div class="row d-flex align-items-center">
-                                        <div class="col-9">
-                                            <h3 class="f-w-300 d-flex align-items-center m-b-0">
-                                                <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
-                                                $ 249.95
-                                            </h3>
+                                        <div class="col-auto">
+                                            <i class="fas feather icon-shopping-cart f-40 text-c-blue "></i>
                                         </div>
+                                        <div class="col">
+                                            <h3 class="f-w-300">{{ rent_amount }}</h3>
+                                            <span class="d-block text-uppercase">TOTAL Sales</span>
 
-                                        <div class="col-3 text-right">
-                                            <p class="m-b-0">67%</p>
                                         </div>
-                                    </div>
-                                    <div class="progress m-t-30" style="height: 7px;">
-                                        <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
-                        <!--[ daily sales section ] end-->
-                        <!--[ Monthly  sales section ] starts-->
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card Monthly-sales">
+                        <!-- Count Members -->
+                        <div class='col-md-3'>
+                            <div class="card">
                                 <div class="card-block">
-                                    <h6 class="mb-4">Monthly Sales</h6>
                                     <div class="row d-flex align-items-center">
-                                        <div class="col-9">
-                                            <h3 class="f-w-300 d-flex align-items-center  m-b-0">
-                                                <i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>
-                                                $ 2.942.32
-                                            </h3>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-friends f-40 " style="color:coral"></i>
                                         </div>
-                                        <div class="col-3 text-right">
-                                            <p class="m-b-0">36%</p>
+                                        <div class="col">
+                                            <h3 class="f-w-300">{{ designer_cnt }}</h3>
+                                            <span class="d-block text-uppercase">TOTAL DESIGNERS</span>
                                         </div>
-                                    </div>
-                                    <div class="progress m-t-30" style="height: 7px;">
-                                        <div class="progress-bar progress-c-theme2" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--[ Monthly  sales section ] end-->
-                        <!--[ year  sales section ] starts-->
-                        <div class="col-md-12 col-xl-4">
-                            <div class="card yearly-sales">
+                        <!-- Count Categories -->
+                        <div class='col-md-3'>
+                        <div class="card">
+                            <div class="card-block">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas feather icon-briefcase f-40 text-c-purple"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="f-w-300">{{ bag_cnt }}</h3>
+                                        <span class="d-block text-uppercase">TOTAL BAGS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <!-- Count Publishers -->
+                        <div class='col-md-3'>                    
+                            <div class="card">
                                 <div class="card-block">
-                                    <h6 class="mb-4">Yearly Sales</h6>
                                     <div class="row d-flex align-items-center">
-                                        <div class="col-9">
-                                            <h3 class="f-w-300 d-flex align-items-center  m-b-0">
-                                                <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
-                                                $ 8.638.32
-                                            </h3>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-friends f-40 " style="color:coral"></i>                             
                                         </div>
-                                        <div class="col-3 text-right">
-                                            <p class="m-b-0">80%</p>
+                                        <div class="col">
+                                            <h3 class="f-w-300">{{ customer_cnt }}</h3>
+                                            <span class="d-block text-uppercase">TOTAL CUSTOMERS</span>
                                         </div>
-                                    </div>
-                                    <div class="progress m-t-30" style="height: 7px;">
-                                        <div class="progress-bar progress-c-theme" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--[ year  sales section ] end-->
                         <!--[ Recent Users ] start-->
                         <div class="col-xl-8 col-md-6">
                             <div class="card Recent-Users">
@@ -96,16 +91,25 @@
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <tbody>
+                                            {% for cus in cus_obj %}
                                                 <tr class="unread">
-                                                    <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td>
                                                     <td>
-                                                        <h6 class="mb-1">Isabella Christensen</h6>
-                                                        <p class="m-0">Lorem Ipsum is simply…</p>
+                                                        <img class="rounded-circle" style="width:40px;" 
+                                                            src={% if cus.gender == "female" %}
+                                                                "/static/assets/images/user/avatar-1.jpg" 
+                                                                {% else %}
+                                                                "/static/assets/images/user/avatar-2.jpg"
+                                                                {% endif %} 
+                                                            alt="activity-user">
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1">{{ cus.first_name }} {{cus.last_name}}</h6>
+                                                        <p class="m-0">{{ cus.email }}</p>
                                                     </td>
                                                     <td>
                                                         <h6 class="text-muted">
                                                             <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
-                                                            11 MAY 12:56
+                                                            {{ cus.phone }}
                                                         </h6>
                                                     </td>
                                                     <td>
@@ -117,90 +121,7 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <tr class="unread">
-                                                    <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-2.jpg" alt="activity-user"></td>
-                                                    <td>
-                                                        <h6 class="mb-1">Mathilde Andersen</h6>
-                                                        <p class="m-0">Lorem Ipsum is simply text of…</p>
-                                                    </td>
-                                                    <td>
-                                                        <h6 class="text-muted">
-                                                            <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
-                                                            11 MAY 10:35
-                                                        </h6>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#!" class="label theme-bg2 text-white f-12">
-                                                            Reject
-                                                        </a>
-                                                        <a href="#!" class="label theme-bg text-white f-12">
-                                                            Approve
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="unread">
-                                                    <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-3.jpg" alt="activity-user"></td>
-                                                    <td>
-                                                        <h6 class="mb-1">Karla Sorensen</h6>
-                                                        <p class="m-0">Lorem Ipsum is simply…</p>
-                                                    </td>
-                                                    <td>
-                                                        <h6 class="text-muted">
-                                                            <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
-                                                            9 MAY 17:38
-                                                        </h6>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#!" class="label theme-bg2 text-white f-12">
-                                                            Reject
-                                                        </a>
-                                                        <a href="#!" class="label theme-bg text-white f-12">
-                                                            Approve
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="unread">
-                                                    <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td>
-                                                    <td>
-                                                        <h6 class="mb-1">Ida Jorgensen</h6>
-                                                        <p class="m-0">Lorem Ipsum is simply text of…</p>
-                                                    </td>
-                                                    <td>
-                                                        <h6 class="text-muted f-w-300">
-                                                            <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
-                                                            19 MAY 12:56
-                                                        </h6>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#!" class="label theme-bg2 text-white f-12">
-                                                            Reject
-                                                        </a>
-                                                        <a href="#!" class="label theme-bg text-white f-12">
-                                                            Approve
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="unread">
-                                                    <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-2.jpg" alt="activity-user"></td>
-                                                    <td>
-                                                        <h6 class="mb-1">Albert Andersen</h6>
-                                                        <p class="m-0">Lorem Ipsum is simply dummy…</p>
-                                                    </td>
-                                                    <td>
-                                                        <h6 class="text-muted">
-                                                            <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
-                                                            21 July 12:56
-                                                        </h6>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#!" class="label theme-bg2 text-white f-12">
-                                                            Reject
-                                                        </a>
-                                                        <a href="#!" class="label theme-bg text-white f-12">
-                                                            Approve
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
