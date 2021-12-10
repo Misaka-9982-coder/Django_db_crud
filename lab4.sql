@@ -250,7 +250,7 @@ delimiter;
     传入参数为用户 id
 */
 delimiter //
-create procedure report_customer_amount(in customer_id bigint(20))
+create procedure report_customer_amount(in customer_id int(32))
     begin
         select 
             c.last_name as 'Last Name',
@@ -282,7 +282,7 @@ delimiter;
     传入参数为用户 id
 */
 delimiter //
-create procedure report_customer_totalCost(in customer_id bigint(20))
+create procedure report_customer_totalCost(in customer_id int(32))
     begin
         select 
             c.last_name as 'Last Name',
@@ -336,6 +336,40 @@ begin
     values ( bagType, bagColor, (select did 
                                 from designer
                                 where name = bagDesigner));
+end //
+delimiter;
+
+
+
+/*
+    存储过程
+    新建一个设计师
+    传入参数为  设计师的名字， 设计师每个包的价格
+*/
+delimiter //
+create procedure add_designer(dname varchar(30), price double(32,2))
+begin
+    
+    insert into designer( name, price) 
+    values (dname, price);
+end //
+delimiter;
+
+
+
+/*
+    存储过程
+    新建一个用户
+    传入参数为  first_name, last_name, 地址， 电话，邮箱，信用卡，性别
+*/
+delimiter //
+create procedure add_customer(lname varchar(32), 
+    fname varchar(32), addr varchar(128), pnum varchar(32),
+    email varchar(64), cnum varchar(32), gender varchar(10))
+begin
+    
+    insert into customer( last_name, first_name, address, phone, email, card, gender) 
+    values (lname, fname, addr, pnum, email, cnum, gender);
 end //
 delimiter;
 
