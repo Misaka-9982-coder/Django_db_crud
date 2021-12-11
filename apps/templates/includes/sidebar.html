@@ -27,7 +27,7 @@
                     <label>Table</label>
                 </li>
                 
-                <li data-username="Table bootstrap datatable footable" class="nav-item pcoded-hasmenu">
+                <li class="nav-item pcoded-hasmenu {% if request.resolver_match.url_name == 'show_designers' or request.resolver_match.url_name == 'show_bags' or request.resolver_match.url_name == 'show_customers' or request.resolver_match.url_name == 'show_rentals'%} active pcoded-trigger{% endif %}">
                     <a href="javascript:" class="nav-link ">
                         <span class="pcoded-micon">
                             <i class="feather icon-server"></i>
@@ -35,7 +35,7 @@
                         <span class="pcoded-mtext">Tables</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="{% if 'bag_tables' in segment %} active {% endif %}">
+                        <li class="">
                             <a href="/bags_table" class="">Bag</a>
                         </li>
                         <li class="">
@@ -72,7 +72,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="">
-                            <a href="/auth-reset-pass.html" class="">Reset Pass</a>
+                            <a href="/reset_pass" class="">Reset Pass</a>
                         </li>
                         <li class="">
                             <a href="/customer_register" class="">Profile</a>

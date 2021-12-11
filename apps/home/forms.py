@@ -3,6 +3,9 @@ from apps.home.models import Customer
 import re
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 class SignUpForm(forms.Form):
 
     firstname = forms.CharField(
@@ -122,3 +125,33 @@ class SignUpForm(forms.Form):
     class Meta:
         model = Customer 
         fields = ('phone', 'email', 'address', 'card', 'lastname', 'firstname', 'gender')
+
+
+class ResetForm(UserCreationForm):
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Current Password",
+                "class": "form-control"
+            }
+        ))
+
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "New Password",
+                "class": "form-control"
+            }
+        ))
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "New Password check",
+                "class": "form-control"
+            }
+        ))
+
+    class Meta:
+        model = User
+        fields = ('password', 'password1', 'password2')

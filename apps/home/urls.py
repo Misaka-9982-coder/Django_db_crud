@@ -7,12 +7,13 @@ from apps.home import views
 urlpatterns = [
     # The home page
     path('', views.index, name='home'),
-    path('bags_table', views.show_bags, name="show_bag"),
+    path('bags_table', views.show_bags, name="show_bags"),
     path('designers_table', views.show_designers, name="show_designers"),
     path('customers_table', views.show_customers, name="show_customers"),
     path('rentals_table', views.show_rentals, name="show_rentals"),
     path('customer_register', views.customer_register, name="customer_register"),
-    
+    path('reset_pass', views.reset_pass, name="reset_pass"),
+
     # re_path('stu/add/$', views.add_stu),
     # re_path('stu/(\d+)/delete', views.delete_stu),
     # re_path('stu/(\d+)/change', views.change_stu),

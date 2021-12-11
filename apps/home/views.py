@@ -1,7 +1,7 @@
-import django
+from django.contrib.auth import authenticate
+from .forms import SignUpForm, ResetForm
 
 
-from .forms import SignUpForm
 from django.db import connection
 from django.db.models.base import Model
 from django.shortcuts import render, redirect
@@ -184,6 +184,34 @@ def customer_register(request):
 
     return render(request, "home/register.html", {"form": form, "msg": msg, "success": success})
 
+
+def reset_pass(request):
+    msg = None
+    success = False
+
+    if request.method == "POST":
+        form = ResetForm(request.POST)
+        if form.is_valid():
+            user = request.user.username
+            password = form.cleaned_data.get("password")
+            new_password = form.cleaned_data.get("password1")
+            user = authenticate(username=user, password=password)
+
+            user = None
+            if user is not None:
+                user.set_password(new_password)
+                user.save()
+
+                msg = 'Password Reseted - please <a href="/">return</a>.'
+                success = True
+            else:
+                msg = 'Current Password error'
+        else:
+            msg = 'Form is not valid'
+    else:
+        form = ResetForm()
+
+    return render(request, "home/reset-pass.html", {"form": form, "msg": msg, "success": success})
 
 
 
