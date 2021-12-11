@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 class Customer(models.Model):
     cid = models.AutoField(primary_key=True)
     phone = models.CharField(max_length=64)
@@ -9,7 +11,6 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     gender = models.CharField(max_length=10, blank=True, null=True)
-    
     class Meta:
         db_table = 'customer'
 

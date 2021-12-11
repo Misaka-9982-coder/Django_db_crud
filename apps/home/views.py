@@ -135,17 +135,28 @@ def show_rentals(request):
 def customer_register(request):
     msg = None
     success = False
-
+    
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-
-            msg = 'User created - please <a href="/login">login</a>.'
+            
+            msg = 'Modified success  - please <a href="/"> Return </a>.'
             success = True
-
-            return redirect("/login/")
-
+            firstname = form.cleaned_data.get("firstname")
+            lastname = form.cleaned_data.get("lastname")
+            phone = form.cleaned_data.get("phone")
+            addr = form.cleaned_data.get("address")
+            email = form.cleaned_data.get("email")
+            card = form.cleaned_data.get("card")
+            gender = form.cleaned_data.get("gender")
+            # return redirect("/")
+            
+            add_customer=Customer(first_name=firstname,
+                last_name=lastname, phone=phone,
+                address=addr, email=email,
+                card=card, gender= gender)
+            
+            add_customer.save()
         else:
             msg = 'Form is not valid'
     else:
