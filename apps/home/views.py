@@ -149,14 +149,34 @@ def customer_register(request):
             email = form.cleaned_data.get("email")
             card = form.cleaned_data.get("card")
             gender = form.cleaned_data.get("gender")
+            
             # return redirect("/")
             
-            add_customer=Customer(first_name=firstname,
-                last_name=lastname, phone=phone,
-                address=addr, email=email,
-                card=card, gender= gender)
+            uid = request.user.id
+            objs = Customer.objects.all()
+            flag = 0
+            for obj in objs:
+                if uid == obj.uid:
+                    flag = 1
+
+
+            if flag:
+                cust = Customer.objects.filter(uid = uid).first()
+                cust.first_name = firstname
+                cust.last_name = lastname
+                cust.phone = phone
+                cust.address = addr
+                cust.email = email
+                cust.card = card
+                cust.gender = gender
+                cust.save()               
+            else:
+                add_customer=Customer(first_name=firstname,
+                    last_name=lastname, phone=phone,
+                    address=addr, email=email,
+                    card=card, gender= gender, uid=uid)
             
-            add_customer.save()
+                add_customer.save()
         else:
             msg = 'Form is not valid'
     else:

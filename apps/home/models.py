@@ -11,6 +11,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     gender = models.CharField(max_length=10, blank=True, null=True)
+    uid = models.IntegerField(max_length=32, null=True)
     class Meta:
         db_table = 'customer'
 
