@@ -401,6 +401,16 @@ delimiter;
 
 
 
+
+delimiter //
+create  procedure add_rentals(bagId int(32))
+begin
+    select already_rented from bag where bid = bagId;
+end //
+delimiter;
+
+
+
 /*
     存储过程
     创建租赁交易记录
@@ -411,7 +421,7 @@ create  procedure add_rentals(customerId int(32), bagId int(32), optionalInsuran
 begin
     insert into rentals(cid, bid, date_rented, date_returned, optional_insurance) 
     values (customerId, bagId, curdate(), curdate() + daysOfRent, optionalInsurance);
-    update bag set already_rented = true where bid = bagId;
+    update bag set already_rented = 1 where bid = bagId;
 end //
 delimiter;
 

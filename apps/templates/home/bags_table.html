@@ -57,9 +57,9 @@
                                                 <td>{{ obj.color }}</td>
                                                 <td>{{ obj.did.name }}</td>
                                                 {% if obj.already_rented == 1 %}
-                                                <td> 已经出租 </td>
+                                                <td> <i class="fas fa-circle text-c-red f-10 m-r-15"></i>已经出租 </td>
                                                 {% else %}
-                                                <td> 可以租借 </td>
+                                                <td> <i class="fas fa-circle text-c-green f-10 m-r-15"></i>可以租借 </td>
                                                 {% endif %}
                                             </tr>
                                         {% endfor %}

@@ -35,7 +35,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Designers</h5>
+                                <h5>Rentals</h5>
                                 <span class="d-block m-t-5">use class <code>table-hover</code> inside table element</span>
                             </div>
                             
@@ -59,9 +59,9 @@
                                                 <td>{{ obj.date_rented }} </td>
                                                 <td>{{ obj.date_returned }} </td>
                                                 {% if obj.optional_insurance == 1 %}
-                                                <td> 是 </td>
+                                                <td> <i class="fas fa-circle text-c-green f-10 m-r-15"></i>是 </td>
                                                 {% else %}
-                                                <td> 否 </td>
+                                                <td> <i class="fas fa-circle text-c-red f-10 m-r-15"></i> 否 </td>
                                                 {% endif %}
                                             </tr>
                                         {% endfor %}

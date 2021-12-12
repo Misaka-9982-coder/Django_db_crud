@@ -60,7 +60,7 @@
                             
                             <br/>
 
-
+                            
                             <table class="table table-hover">
                                 <thead>
                                     {% for column in columns %}
@@ -68,38 +68,39 @@
                                         {{ column }}
                                     </th>
                                     {% endfor %}
+                                    <th> 买保险吗 ？</th>
                                     <th> Operation </th>
                                 </thead>
                                 <tbody>
                                 {% for obj in objs %}
+                                <form role="form" method="post" action="">
+                                    {% csrf_token %} 
+                                    <input type="hidden" name="bag_id" value={{obj.bid}}>
+
+                                    {% if obj.already_rented == 0 %}
                                     <tr>
                                         <td>{{ obj.bid }}</td>
                                         <td>{{ obj.btype }}</td>
                                         <td>{{ obj.color }}</td>
                                         <td>{{ obj.did.name }}</td>
 
-                                        {% if obj.already_rented == 1 %}
-                                        <td> 已经出租 </td>
-                                        {% else %}
-                                        <td> 可以租借 </td>
-                                        {% endif %}
-
-                                        {% if obj.already_rented == 1 %}
-                                            {% if 1%}
-                                            <td>
-                                                <a href="" class="btn btn-light">已出租</a>
-                                            </td>
-                                            {% else %}
-                                            <td>
-                                                <a href="" class="btn btn-success">退回去</a>
-                                            </td>
-                                            {%endif%}
-                                        {% else %}
-                                        <td>
-                                            <a href="" class="btn btn-primary">租这个</a>
+                                        <td width= "20%">
+                                            <input type="number" placeholder="租借天数" name="days" class="form-control">
                                         </td>
-                                        {% endif %}
+
+                                        <td width= "20%">
+                                            <select class="form-control" id="exampleFormControlSelect1" name="insurance">
+                                                <option value ="0">不买</option>
+                                                <option value ="1">买</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-primary">租这个</a>
+                                        </td>
+                                        
                                     </tr>
+                                    {% endif %}
+                                </form>
                                 {% endfor %}
                                 </tbody>
                             </table>
@@ -107,7 +108,7 @@
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <p class="mb-0">
-
+                            
                         </p>
                     </div>
                 </div>

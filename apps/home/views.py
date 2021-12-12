@@ -331,18 +331,39 @@ def rent_bag(request):
 
     msg = None
     success = True
+    flag = True
     data = Bag._meta.fields
     columns = [data[i].name for i in range(len(data))]
     objs = Bag.objects.all()
     uid = request.user.id
     
     customer = Customer.objects.filter(uid = uid).first()
-    if customer is None:
-        msg = "Please improve your personal information"
+    print(1)
+    # print(customer)
+    if customer is None: 
+        flag = False
+        msg = 'Please improve your personal information - <a href="/customer_register"> Profile </a>'
         success = False
-    else:
-        cid = customer.cid
 
+    if flag:
+        cid = customer.cid
+        print(2)
+        if request.method == "POST":
+            bagid = request.POST.get("bag_id")
+            days = request.POST.get("days")
+            insurance = request.POST.get("insurance")
+            cur = connection.cursor()
+            print(3)
+            try:
+                cur.callproc('add_rentals', (cid, bagid, insurance, days),)
+                msg = "Success"
+                print(4)
+            except:
+                msg = "Please enter how many days you want to rent"
+                success = False
+                print(5)
+       
+    print(6)
     return render(request, 'home/rent_bag.html', locals())
 
 
