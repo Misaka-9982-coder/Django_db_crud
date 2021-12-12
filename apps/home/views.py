@@ -181,6 +181,7 @@ def reset_pass(request):
     return render(request, "home/reset-pass.html", {"form": form, "msg": msg, "success": success})
 
 
+
 @login_required(login_url="/login/")
 def bag_views(request):
 
@@ -323,6 +324,26 @@ def add_bag(request):
                 msg = 'Success - please <a href="/">return</a>.'
 
     return render(request, 'home/add_bag.html', locals())
+
+
+
+def rent_bag(request):
+
+    msg = None
+    success = True
+    data = Bag._meta.fields
+    columns = [data[i].name for i in range(len(data))]
+    objs = Bag.objects.all()
+    uid = request.user.id
+    
+    customer = Customer.objects.filter(uid = uid).first()
+    if customer is None:
+        msg = "Please improve your personal information"
+        success = False
+    else:
+        cid = customer.cid
+
+    return render(request, 'home/rent_bag.html', locals())
 
 
 

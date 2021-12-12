@@ -19,7 +19,7 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="/tables">Tables</a></li>
+                            <li class="breadcrumb-item"><a href="">Tables</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                                             <tr>
                                                 <td>{{ obj.rid }}</td>
                                                 <td>{{ obj.cid.first_name }} {{obj.cid.last_name}}</td>
-                                                <td>{{ obj.bid.type }} </td>
+                                                <td>{{ obj.bid.btype }} </td>
                                                 <td>{{ obj.date_rented }} </td>
                                                 <td>{{ obj.date_returned }} </td>
                                                 {% if obj.optional_insurance == 1 %}

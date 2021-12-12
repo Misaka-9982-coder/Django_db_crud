@@ -23,7 +23,7 @@ urlpatterns = [
     path('best_customer', views.best_customer, name="best_customer"),
     path('customers_amount', views.customers_amount, name="customers_amount"),
     path('add_bag', views.add_bag, name="add_bag"),
-
+    path('rent_bag', views.rent_bag, name="rent_bag"),
     
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),

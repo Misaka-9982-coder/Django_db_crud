@@ -1,0 +1,122 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/tables">Tables</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="col-sm-12">
+                <h5>Basic Tabs</h5>
+                <hr>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Bag</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <p class="mb-0">
+
+                            <div class="col-md-6">
+                                &nbsp
+                                {% if success %}
+                                    <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
+                                {% else %}
+                                    <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
+                                {% endif %}
+                                <span class="mb-0 text-muted">
+                                    {% if msg %}
+                                        {{ msg | safe }}
+                                    {% else %}
+                                        Let's rent a bag!
+                                    {% endif %} 
+                                </span>
+                            </div>
+                            
+                            <br/>
+
+
+                            <table class="table table-hover">
+                                <thead>
+                                    {% for column in columns %}
+                                    <th>
+                                        {{ column }}
+                                    </th>
+                                    {% endfor %}
+                                    <th> Operation </th>
+                                </thead>
+                                <tbody>
+                                {% for obj in objs %}
+                                    <tr>
+                                        <td>{{ obj.bid }}</td>
+                                        <td>{{ obj.btype }}</td>
+                                        <td>{{ obj.color }}</td>
+                                        <td>{{ obj.did.name }}</td>
+
+                                        {% if obj.already_rented == 1 %}
+                                        <td> 已经出租 </td>
+                                        {% else %}
+                                        <td> 可以租借 </td>
+                                        {% endif %}
+
+                                        {% if obj.already_rented == 1 %}
+                                            {% if 1%}
+                                            <td>
+                                                <a href="" class="btn btn-light">已出租</a>
+                                            </td>
+                                            {% else %}
+                                            <td>
+                                                <a href="" class="btn btn-success">退回去</a>
+                                            </td>
+                                            {%endif%}
+                                        {% else %}
+                                        <td>
+                                            <a href="" class="btn btn-primary">租这个</a>
+                                        </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <p class="mb-0">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
