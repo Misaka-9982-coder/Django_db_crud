@@ -35,7 +35,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Bag by Designer</h5>
+                                <h5>Customer's bills</h5>
                             </div>
 
                             <br/>
@@ -43,7 +43,7 @@
                             <div class="col-md-4">
                                 <form role="form" method="get" action="">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="designer_name" placeholder="Designer's name" required>
+                                        <input type="text" class="form-control" name="customer_id" placeholder="Customer's id" required>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Submit</button>
                                         </div>
@@ -62,31 +62,41 @@
                                     {% if msg %}
                                         {{ msg | safe }}
                                     {% else %}
-                                        Enter a Designer's name
+                                        Enter a Customer's id
                                     {% endif %} 
                                 </span>
                             </div>
-
                             
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
                                     {% if msg is not None and success %}
                                     <table class="table table-hover">
                                         <thead>
-                                            <th> Type </th>
-                                            <th> Color </th>
-                                            <th> Designer's Name </th>
-                                            
+                                            <th>Last name</th>
+                                            <th>First name</th>
+                                            <th>Manufacturer</th>
+                                            <th>Bag's Type</th>
+                                            <th>Date of lease</th>
+                                            <th>$ Bills</th>
                                         </thead>
                                         <tbody>
-                                        {% for objs in objss %}
+                                        {% for amount in amounts %}
                                             <tr>
-                                            {% for obj in objs %}
+                                            {% for obj in amount %}
                                                 <td> {{obj}} </td>
                                             {% endfor %}
                                             </tr>
                                         {% endfor %}
-                                        </tbody> 
+                                            
+                                        </tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><h5> Total Bills: </h5></td>
+                                            <td><h4> $ {{cost}}</h4></td>
+                                        </tr>
                                     </table>
                                     {% endif %}
                                 </div>

@@ -213,18 +213,65 @@ def bag_views(request):
 
                 msg = name + "'s bags are all here"
             else:
-                msg = "This designer doesn't exits"
+                msg = "Designer " + name + " doesn't exits"
+        
 
     return render(request, 'home/bag_views.html', locals())
 
 
 
+@login_required(login_url="/login/")
 def best_customer(request):
     cur = connection.cursor()
     cur.callproc("best_customers")
     datas = cur.fetchall()
     return render(request, 'home/best_customer.html', locals())
 
+
+
+@login_required(login_url="/login/")
+def customers_amount(request):
+    msg = None
+    success = True
+
+    if request.method == "GET":
+        customer_id = request.GET.get('customer_id')
+        if customer_id is not None: 
+            id = int(customer_id)
+            cur = connection.cursor()
+
+            cur.callproc('get_customers_id')
+            data = cur.fetchall()
+            
+            ids = []
+            
+            for da in data:
+                ids.append(da[0])
+
+            if id is not None:
+                if id in ids:
+                    success = True
+                else:
+                    success = False
+            
+                if success:
+                    cur2 = connection.cursor()
+                    cur3 = connection.cursor()
+
+                    cur2.callproc('report_customer_amount', (id,))
+                    cur3.callproc('report_customer_totalCost', (id,))
+
+                    amounts = cur2.fetchall()
+                    totalCosts = cur3.fetchall()
+                    cost = totalCosts[0][2]
+                    msg = "The customer whose id is " + customer_id + "'s bill"
+                else:
+                    msg = "The customer whose id is " + customer_id + " doesn't exits"
+    
+    return render(request, 'home/customers_amount.html', locals())
+
+
+    
 
 '''分页'''
 @login_required(login_url="/login/")

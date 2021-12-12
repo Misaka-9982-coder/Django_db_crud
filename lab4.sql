@@ -274,9 +274,9 @@ begin
     select 
         c.last_name as 'Last Name',
         c.first_name as 'First Name',
-        concat(c.first_name, ' ', c.last_name) as "Name",
         d.name as 'Manufacturer',
         b.type as 'Name',
+        datediff( r.date_returned, r.date_rented) as 'totalDays',
         (d.price + r.optional_insurance) 
             * datediff( r.date_returned, r.date_rented) as 'Cost'
     from rentals as r 
@@ -307,7 +307,6 @@ begin
     select 
         c.last_name as 'Last Name',
         c.first_name as 'First Name',
-        concat(c.first_name, ' ', c.last_name) as "Name",
         sum((d.price + r.optional_insurance) 
             * datediff( r.date_returned, r.date_rented)) as totalCost
     from rentals as r 

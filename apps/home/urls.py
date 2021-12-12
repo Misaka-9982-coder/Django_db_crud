@@ -21,7 +21,7 @@ urlpatterns = [
     
     path('bag_views', views.bag_views, name="bags_views"),
     path('best_customer', views.best_customer, name="best_customer"),
-    # path('customers_amount', views.reset_pass, name="reset_pass"),
+    path('customers_amount', views.customers_amount, name="customers_amount"),
     # path('add_bag', views.reset_pass, name="reset_pass"),
 
     
