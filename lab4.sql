@@ -59,7 +59,7 @@ INSERT INTO designer(name, price) value
 */
 create table `bag`(
     `bid` int(32) not null AUTO_INCREMENT,
-    `type` varchar(32) not null,
+    `btype` varchar(32) not null,
     `color` varchar(32) not null,
     `did` int(32) not null,
     `already_rented` tinyint(1) not null default 0,
@@ -67,7 +67,7 @@ create table `bag`(
     foreign key(`did`) references `designer`(`did`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO bag(bid, type,color, did) value
+INSERT INTO bag(bid, btype,color, did) value
 (101,'Claudia','White',1),
 (102,'Cabas Piano','Multi',1),
 (103,'Monogram Pochette','Multi',1),
@@ -214,6 +214,32 @@ delimiter;
 
 
 
+/*  
+    存储过程
+    获取设计师的id
+ */
+delimiter //
+create procedure get_designer_id(in dName varchar(64))
+begin
+    select did from designer where name = dName;
+end; //
+delimiter;
+
+
+
+/*  
+    存储过程
+    获取设计师的价格
+ */
+delimiter //
+create procedure get_designer_price(in dName varchar(64))
+begin
+    select price from designer where name = dName;
+end; //
+delimiter;
+
+
+
 /*
     存储过程
     创建显示每个设计师设计了多少包
@@ -223,7 +249,7 @@ delimiter //
 create procedure bag_by_designer(in designer varchar(30))
 begin
     select 
-        type as 'Name', 
+        btype as 'Name', 
         color as 'Color', 
         d.name as 'Manufacturer' 
     from bag as b
@@ -275,7 +301,7 @@ begin
         c.last_name as 'Last Name',
         c.first_name as 'First Name',
         d.name as 'Manufacturer',
-        b.type as 'Name',
+        b.btype as 'Name',
         datediff( r.date_returned, r.date_rented) as 'totalDays',
         (d.price + r.optional_insurance) 
             * datediff( r.date_returned, r.date_rented) as 'Cost'
@@ -308,7 +334,7 @@ begin
         c.last_name as 'Last Name',
         c.first_name as 'First Name',
         d.name as 'Manufacturer',
-        b.type as 'Name',
+        b.btype as 'Name',
         datediff( r.date_returned, r.date_rented) as 'totalDays',
         (d.price + r.optional_insurance) 
             * datediff( r.date_returned, r.date_rented) as 'Cost'
@@ -401,7 +427,7 @@ delimiter;
 delimiter //
 create procedure add_bag(bagType varchar(30), bagColor varchar(10), bagDesigner varchar(30))
 begin
-    insert into bag( type, color, did) 
+    insert into bag( btype, color, did) 
     values ( bagType, bagColor, (select did 
                                 from designer
                                 where name = bagDesigner));

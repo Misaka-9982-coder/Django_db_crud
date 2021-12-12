@@ -29,7 +29,7 @@
                     <label>Views</label>
                 </li>
                 
-                <li class="nav-item pcoded-hasmenu {% if request.resolver_match.url_name == ''%} active pcoded-trigger{% endif %}">
+                <li class="nav-item pcoded-hasmenu {% if request.resolver_match.url_name == 'bags_views' or request.resolver_match.url_name == 'best_customer' or request.resolver_match.url_name == 'customers_amount' or request.resolver_match.url_name == 'add_bag'%} active pcoded-trigger {% endif %}">
                     <a href="javascript:" class="nav-link ">
                         <span class="pcoded-micon">
                             <i class="feather icon-server"></i>

@@ -1,0 +1,119 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}   
+
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="feather icon-briefcase auth-icon"></i>
+                    </div>
+                    <h3 class="mb-4">Add a new bag</h3>
+
+                    <span class="mb-0 text-muted">
+                        {% if msg %}
+                            {{ msg | safe }}
+                        {% else %}
+                            Add a new bag
+                        {% endif %} 
+                    </span>
+                    
+                    <br />
+                    <br />
+
+                    <form role="form" method="post" action="">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="bag_name" placeholder="Bag's type" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="bag_color" placeholder="Bag's color" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="designer_name" placeholder="Designer's name" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="price_per_day" placeholder="Bag's price per day" required>
+                        </div>
+                        <button type="submit" name="add_bag" class="btn btn-primary shadow-2 mb-4">Add</button>
+
+                    </form>
+
+                    <p class="mb-0 text-muted">Don't want to add it anymore ? <a href="/" >Return</a></p>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+{% comment %} 
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="">Views</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+
+                    <!-- [ Hover-table ] start -->
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Add Bag</h5>
+                            </div>
+
+                            <br/>
+
+                            
+
+                            
+                        </div>
+                    </div>
+                    <!-- [ Hover-table ] end -->
+
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %} {% endcomment %}

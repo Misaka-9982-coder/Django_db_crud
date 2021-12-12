@@ -29,7 +29,7 @@ class Designer(models.Model):
 
 class Bag(models.Model):
     bid = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=32)
+    btype = models.CharField(max_length=32)
     color = models.CharField(max_length=32)
     did = models.ForeignKey('Designer', models.DO_NOTHING, db_column='did')
     already_rented = models.IntegerField()

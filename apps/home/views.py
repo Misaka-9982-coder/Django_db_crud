@@ -271,7 +271,60 @@ def customers_amount(request):
     return render(request, 'home/customers_amount.html', locals())
 
 
-    
+
+@login_required(login_url="/login/")
+def add_bag(request):
+    msg = None
+    flag = True
+    success = True
+
+    if request.method == "POST":
+        bname = request.POST.get('bag_name')
+        bcolor = request.POST.get('bag_color')
+
+        dname = request.POST.get('designer_name')
+        bprice = request.POST.get('price_per_day')
+        
+        try:
+            dprice = float(bprice)
+        except:
+            msg = "please enter a current number"
+            success = False
+
+
+        if success:
+            cur = connection.cursor()
+            cur.callproc('get_designers_name')
+            data = cur.fetchall()
+            cur.close()
+
+            d_names = []
+            for i in data:
+                d_names.append(i[0])
+            
+            cur = connection.cursor()
+            
+            if dname in d_names:
+                cur.callproc('get_designer_price', (dname,),)
+                data = cur.fetchall()
+                price = data[0][0]
+                if dprice != price:
+                    msg = "The price is not equal to this designer's price"
+                    flag = False
+            else:
+                cur.callproc('add_designer', (dname, dprice),)
+            
+            cur.close()
+
+            if flag:
+                cur = connection.cursor()
+                cur.callproc("add_bag", (bname, bcolor, dname))
+                cur.close()
+                msg = 'Success - please <a href="/">return</a>.'
+
+    return render(request, 'home/add_bag.html', locals())
+
+
 
 '''分页'''
 @login_required(login_url="/login/")
