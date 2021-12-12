@@ -35,60 +35,31 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Bag by Designer</h5>
+                                <h5>Best Customer</h5>
                             </div>
 
                             <br/>
-
-                            <div class="col-md-4">
-                                <form role="form" method="get" action="">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="designer_name" placeholder="Designer's name">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit">Submit</button>
-                                        </div>
-                                    </div>
-                                <form>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                &nbsp
-                                {% if success %}
-                                    <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
-                                {% else %}
-                                    <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
-                                {% endif %}
-                                <span class="mb-0 text-muted">
-                                    {% if msg %}
-                                        {{ msg | safe }}
-                                    {% else %}
-                                        Enter a Designer's name
-                                    {% endif %} 
-                                </span>
-                            </div>
-
                             
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
-                                    {% if msg is not None and success %}
                                     <table class="table table-hover">
                                         <thead>
-                                            <th> Type </th>
-                                            <th> Color </th>
-                                            <th> Designer's Name </th>
-                                            
+                                            <th>Last Name</th>
+                                            <th>First Name</th>
+                                            <th>Address</th>
+                                            <th>Telephone</th>
+                                            <th>Total Length of Rentals</th>
                                         </thead>
                                         <tbody>
-                                        {% for objs in objss %}
+                                        {% for data in datas %}
                                             <tr>
-                                            {% for obj in objs %}
+                                            {% for obj in data %}
                                                 <td> {{obj}} </td>
                                             {% endfor %}
                                             </tr>
                                         {% endfor %}
                                         </tbody> 
                                     </table>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>

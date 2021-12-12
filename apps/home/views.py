@@ -210,12 +210,20 @@ def bag_views(request):
                 cur2 = connection.cursor()
                 cur2.callproc('bag_by_designer', (name,))
                 objss = cur2.fetchall()
-                
+
                 msg = name + "'s bags are all here"
             else:
                 msg = "This designer doesn't exits"
 
     return render(request, 'home/bag_views.html', locals())
+
+
+
+def best_customer(request):
+    cur = connection.cursor()
+    cur.callproc("best_customers")
+    datas = cur.fetchall()
+    return render(request, 'home/best_customer.html', locals())
 
 
 '''分页'''
