@@ -1,7 +1,6 @@
 from django import forms
-from apps.home.models import Customer
+from apps.home.models import Customer, Designer
 import re
-from django.core.exceptions import ValidationError
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -125,6 +124,7 @@ class SignUpForm(forms.Form):
     class Meta:
         model = Customer 
         fields = ('phone', 'email', 'address', 'card', 'lastname', 'firstname', 'gender')
+
 
 
 class ResetForm(UserCreationForm):

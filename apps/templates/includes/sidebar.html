@@ -15,7 +15,7 @@
                     <label>Navigation</label>
                 </li>
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
-                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    class="nav-item {% if request.resolver_match.url_name == 'home' %} active {% endif %}">
                     <a href="/" class="nav-link ">
                         <span class="pcoded-micon">
                             <i class="feather icon-home"></i>
@@ -23,6 +23,36 @@
                         <span class="pcoded-mtext">Dashboard</span>
                     </a>
                 </li>
+
+
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Views</label>
+                </li>
+                
+                <li class="nav-item pcoded-hasmenu {% if request.resolver_match.url_name == ''%} active pcoded-trigger{% endif %}">
+                    <a href="javascript:" class="nav-link ">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-server"></i>
+                        </span>
+                        <span class="pcoded-mtext">Views</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="">
+                            <a href="/bag_views" class="">Bag by Designer</a>
+                        </li>
+                        <li class="">
+                            <a href="/best_customer" class="">Best Customer</a>
+                        </li>
+                        <li class="">
+                            <a href="/customers_amount" class="">Report Customer Amount</a>
+                        </li>
+                        <li class="">
+                            <a href="/add_bag" class="">Add Bag</a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-item pcoded-menu-caption">
                     <label>Table</label>
                 </li>
@@ -49,6 +79,7 @@
                         </li>
                     </ul>
                 </li>
+                
                 
                 <li class="nav-item pcoded-menu-caption">
                     <label>Security</label>

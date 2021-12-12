@@ -1,0 +1,112 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/tables">Tables</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+
+                    <!-- [ Hover-table ] start -->
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Bag by Designer</h5>
+                            </div>
+
+                            <br/>
+                            
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+                                <form role="form" method="get" action="">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="designer_name" placeholder="Designer's name">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                <form>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                &nbsp
+                                {% if success %}
+                                    <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
+                                {% else %}
+                                    <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
+                                {% endif %}
+                                <span class="mb-0 text-muted">
+                                    {% if msg %}
+                                        {{ msg | safe }}
+                                    {% else %}
+                                        Enter a Designer's name
+                                    {% endif %} 
+                                </span>
+                            </div>
+
+                            
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    {% if success %}
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th> Type </th>
+                                            <th> Color </th>
+                                            <th> Designer's Name </th>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        {% for objs in objss %}
+                                            <tr>
+                                            {% for obj in objs %}
+                                                <td> {{obj}} </td>
+                                            {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody> 
+                                    </table>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Hover-table ] end -->
+
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

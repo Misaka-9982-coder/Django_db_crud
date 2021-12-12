@@ -13,6 +13,11 @@ from django.urls import reverse
 from apps.home.models import *
 
 
+
+
+# Create your views here.
+
+
 @login_required(login_url="/login/")
 def index(request):
     cur = connection.cursor()
@@ -42,47 +47,6 @@ def index(request):
     return render(request, 'home/index.html', locals())
     # return HttpResponse(html_template.render(data, context, request))
 
-
-
-# Create your views here.
-# def add_stu(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         sex = request.POST.get('sex')
-#         birthday = request.POST.get('birthday')
-
-#         # 添加书籍记录，一对多
-#         stu_obj = Student.objects.create(name=name, sex=sex, birthday=birthday)
-        
-#         return redirect('/tables')
-
-#     students = Student.objects.all()
-#     return render(request, 'home/addStudent.html', locals())
-
-
-
-# '''删除操作'''
-# @login_required(login_url="/login/")
-# def delete_stu(request, delete_stu_id):
-#     Student.objects.filter(id=delete_stu_id).delete()
-#     students = Student.objects.all()
-#     return render(request, 'home/tables.html', locals())
-
-
-
-# '''编辑操作'''
-# def change_stu(request, edit_stu_id):
-#     stu_obj = Student.objects.filter(id=edit_stu_id).first()
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         sex = request.POST.get('sex')
-#         birthday = request.POST.get('birthday')
-
-#         # 更新书籍记录
-#         Student.objects.filter(id=edit_stu_id).update(name=name, sex=sex, birthday=birthday)
-#         return redirect('/tables')
-
-#     return render(request, 'home/editStudent.html', locals())
 
 
 
@@ -132,6 +96,7 @@ def show_rentals(request):
 
 
 
+@login_required(login_url="/login/")
 def customer_register(request):
     msg = None
     success = False
@@ -185,6 +150,8 @@ def customer_register(request):
     return render(request, "home/register.html", {"form": form, "msg": msg, "success": success})
 
 
+
+@login_required(login_url="/login/")
 def reset_pass(request):
     msg = None
     success = False
@@ -214,6 +181,41 @@ def reset_pass(request):
     return render(request, "home/reset-pass.html", {"form": form, "msg": msg, "success": success})
 
 
+@login_required(login_url="/login/")
+def bag_views(request):
+
+    msg = None
+    success = True
+
+    if request.method == "GET":
+        name = request.GET.get('designer_name')
+        cur = connection.cursor()
+
+
+        cur.callproc('get_designers_name')
+        data = cur.fetchall()
+        
+        names = []
+        
+        for da in data:
+            names.append(da[0])
+
+        if name is not None:
+            if name in names:
+                success = True
+            else:
+                success = False
+        
+            if success:
+                cur2 = connection.cursor()
+                cur2.callproc('bag_by_designer', (name,))
+                objss = cur2.fetchall()
+                
+                msg = name + "'s bags are all here"
+            else:
+                msg = "This designer doesn't exits"
+
+    return render(request, 'home/bag_views.html', locals())
 
 
 '''分页'''
@@ -230,9 +232,6 @@ def pages(request):
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
 
-        # students = models.Student.objects.all()
-        # if load_template == 'tables':
-        #     return render(request, 'home/tables.html', locals())
 
         html_template = loader.get_template('home/' + load_template)
         return HttpResponse(html_template.render(context, request))
