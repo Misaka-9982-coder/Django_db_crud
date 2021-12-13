@@ -64,15 +64,6 @@ def show_bags(request):
 
 
 @login_required(login_url="/login/")
-def show_bags(request):
-    data = Bag._meta.fields
-    columns = [data[i].name for i in range(len(data))]
-    objs = Bag.objects.all()
-    return render(request, 'home/bags_table.html', locals())
-
-
-
-@login_required(login_url="/login/")
 def show_designers(request):
     data = Designer._meta.fields
     columns = [data[i].name for i in range(len(data))]
