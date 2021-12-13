@@ -15,6 +15,11 @@ DATABASES = {
 }
 ```
 
+在命令行中输入以下命令安装 mysql 驱动
+```
+sudo pip3 install pymysql
+```
+
 加载`lab4.sql`文件导入数据库
 
 配置`Django`环境
@@ -69,24 +74,45 @@ lease ( <u>id</u>, bag_id, customer_id, start_date, back_date, insure_or_not )
 #### 存储过程设计
 
 ```sql
-show_all_tables()					    --返回所有表的表名
-show_table(tableName) 				--传入表名，返回指定表的数据
+ --返回所有表的表名
+show_all_tables()				
+
+--传入表名，返回指定表的数据	   
+show_table(tableName) 			
+
+--传入表名，返回指定表的表头字段
 show_columns_from_table(tableName)
-									            --传入表名，返回指定表的表头字段
-get_customers_id()					  --获取所有客户id
-get_designers_name()				  --获取所有设计师名字
-bag_by_designer(designer)			--传入设计师名字，获取指定设计师设计的背包
-best_customers()					    --按照客户租赁所有包包的总天数排序显示客户
-report_customer_amount(customer_id)	--传入用户id，根据用户id计算用户每个租赁交易应支付金额
+
+--获取所有客户id
+get_customers_id()	
+
+--获取所有设计师名字		  
+get_designers_name()				 
+
+--传入设计师名字，获取指定设计师设计的背包
+bag_by_designer(designer)			
+
+--按照客户租赁所有包包的总天数排序显示客户
+best_customers()					    
+
+--传入用户id，根据用户id计算用户每个租赁交易应支付金额
+report_customer_amount(customer_id)	
+
+--传入用户id，根据用户id计算用户所有租赁交易应支付总额
 report_customer_totalCost(customer_id)
-									            --传入用户id，根据用户id计算用户所有租赁交易应支付总额
+
+--传入用户id，包包id，是否支付保险，租用天数，添加一笔租赁交易
 add_rentals(customerId, bagId, optionalInsurance, daysOfRent)
-									            --传入用户id，包包id，是否支付保险，租用天数，添加一笔租赁交易
+
+--传入包包类型，颜色，设计者，添加一个可以租赁的包包    
 add_bag(bagType, bagColor, bagDesigner)
-									            --传入包包类型，颜色，设计者，添加一个可以租赁的包包
-add_designer(dname, price)		--传入设计师的名字， 每个包包的价格， 添加一个设计师
+
+--传入设计师的名字， 每个包包的价格， 添加一个设计师   
+add_designer(dname, price)		
+
+--传入客户姓氏，名字, 地址，电话号码，邮箱地址，信用卡号码，性别
 add_customer(lname,fname, addr, pnum ,email, cnum, gender)
-									            --传入客户姓氏，名字, 地址，电话号码，邮箱地址，信用卡号码，性别
+									            
 .....
 详见 lab4.sql 文件
 ```

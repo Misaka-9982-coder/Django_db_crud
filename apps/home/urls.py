@@ -8,17 +8,17 @@ urlpatterns = [
     # The home page
     path('', views.index, name='home'),
     
-    
+    # 展示数据库中几张表的数据
     path('bags_table', views.show_bags, name="show_bags"),
     path('designers_table', views.show_designers, name="show_designers"),
     path('customers_table', views.show_customers, name="show_customers"),
     path('rentals_table', views.show_rentals, name="show_rentals"),
     
-    
+    # 注册 customer ，重置密码
     path('customer_register', views.customer_register, name="customer_register"),
     path('reset_pass', views.reset_pass, name="reset_pass"),
     
-    
+    # 实验要求的几个功能
     path('bag_views', views.bag_views, name="bags_views"),
     path('best_customer', views.best_customer, name="best_customer"),
     path('customers_amount', views.customers_amount, name="customers_amount"),

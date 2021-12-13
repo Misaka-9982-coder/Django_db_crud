@@ -1,4 +1,4 @@
-
+# 自定义 form 模型处理 表单信息
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -13,6 +13,7 @@ class LoginForm(forms.Form):
                 "class": "form-control"
             }
         ))
+        
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
@@ -30,6 +31,7 @@ class SignUpForm(UserCreationForm):
                 "class": "form-control"
             }
         ))
+
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
@@ -37,6 +39,7 @@ class SignUpForm(UserCreationForm):
                 "class": "form-control"
             }
         ))
+
     password1 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
@@ -44,6 +47,7 @@ class SignUpForm(UserCreationForm):
                 "class": "form-control"
             }
         ))
+
     password2 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={

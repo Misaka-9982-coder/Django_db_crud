@@ -2,6 +2,9 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+# 若已经创建原有数据库可以在项目根目录命令行使用如下命令逆向出 models  文件
+# python manage.py inspectdb > models.py
+
 class Customer(models.Model):
     cid = models.AutoField(primary_key=True)
     phone = models.CharField(max_length=64)

@@ -20,8 +20,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1',
 # Application definition
 
 INSTALLED_APPS = [
-    'simpleui',
-    # 'jet',
+    'simpleui',                # 后台页面美化
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,17 +69,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # # Django 自带的默认数据库
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': 'db.sqlite3',
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lab4',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': 'lab4',                         # 数据库名称
+        'USER': 'root',                         # 用户名
+        'PASSWORD': '123456',                   # 密码
+        'HOST': 'localhost',                    # 连接数据库的 ip 地址
+        'PORT': '3306',                         # 端口号
     }
 }
 

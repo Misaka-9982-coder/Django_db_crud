@@ -5,6 +5,8 @@ import re
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+
+# 注册 customer 
 class SignUpForm(forms.Form):
 
     firstname = forms.CharField(
@@ -126,7 +128,7 @@ class SignUpForm(forms.Form):
         fields = ('phone', 'email', 'address', 'card', 'lastname', 'firstname', 'gender')
 
 
-
+# 重置密码
 class ResetForm(UserCreationForm):
 
     password = forms.CharField(
