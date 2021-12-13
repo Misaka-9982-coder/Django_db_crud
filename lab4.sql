@@ -401,16 +401,6 @@ delimiter;
 
 
 
-
-delimiter //
-create  procedure add_rentals(bagId int(32))
-begin
-    select already_rented from bag where bid = bagId;
-end //
-delimiter;
-
-
-
 /*
     存储过程
     创建租赁交易记录
