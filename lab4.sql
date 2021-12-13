@@ -480,6 +480,21 @@ delimiter;
 
 
 /*
+    存储过程
+    更新包的归还日期
+    输入参数为 rid
+*/
+delimiter //
+create procedure turnBack(rent_id int(32))
+begin
+    update rentals set date_returned = curdate() where rid = rent_id;
+    select @totalDays, @bill;
+end //
+delimiter;
+
+
+
+/*
     触发器
     创建会话变量 totalDays，bill
     totalDays   记录总的租赁天数

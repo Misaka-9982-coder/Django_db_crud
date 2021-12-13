@@ -1,3 +1,5 @@
+from datetime import datetime
+import time
 from django.contrib.auth import authenticate
 from .forms import SignUpForm, ResetForm
 
@@ -338,8 +340,7 @@ def rent_bag(request):
     uid = request.user.id
     
     customer = Customer.objects.filter(uid = uid).first()
-    print(1)
-    # print(customer)
+
     if customer is None: 
         flag = False
         msg = 'Please improve your personal information - <a href="/customer_register"> Profile </a>'
@@ -347,24 +348,68 @@ def rent_bag(request):
 
     if flag:
         cid = customer.cid
-        print(2)
         if request.method == "POST":
             bagid = request.POST.get("bag_id")
             days = request.POST.get("days")
             insurance = request.POST.get("insurance")
             cur = connection.cursor()
-            print(3)
             try:
                 cur.callproc('add_rentals', (cid, bagid, insurance, days),)
-                msg = "Success"
-                print(4)
+                msg = "Rent bag: " + bagid + " Success"
             except:
                 msg = "Please enter how many days you want to rent"
                 success = False
-                print(5)
        
-    print(6)
     return render(request, 'home/rent_bag.html', locals())
+
+
+
+def mybag(request):
+    msg = None
+    success = True
+    bags = Bag.objects.filter(already_rented = 1)
+    bids = []
+    for bag in bags:
+        bids.append(bag.bid)
+
+    uid = request.user.id
+    customer = Customer.objects.filter(uid = uid).first()
+    cid = customer.cid
+
+    rentals = Rentals.objects.filter(bid__in=bids)
+    rents = list(rentals.filter(cid = cid).order_by("-date_returned"))
+    
+    ids = []
+    bids = []
+    for rent in rents:
+        if rent.bid.bid not in bids:
+            bids.append(rent.bid.bid)
+            ids.append(rent.bid)
+
+    if request.method == "POST":
+        bid = request.POST.get("bag_id")    
+        rids = list(rentals.filter(cid = cid, bid = bid).order_by("-date_returned"))
+        rid = rids[0].rid
+
+        cur = connection.cursor()
+        
+        for id in ids:
+            print(id)
+            if id.bid == int(bid):
+                ids.remove(id)
+
+        cur.callproc("turnBack", (rid,),)
+        
+        
+
+        data = cur.fetchall()
+        cur.close()
+        days = data[0][0]
+        bill = data[0][1]
+        msg = data
+        msg = "The bag id : " + str(bid) + ", total days you rent it : " + str(days) + ", the bill you should pay : $" + str(bill)
+        
+    return render(request, 'home/mybag.html', locals())
 
 
 

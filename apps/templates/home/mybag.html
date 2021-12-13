@@ -1,0 +1,92 @@
+
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/tables">Tables</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="col-sm-12">
+                
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <p class="mb-0">
+
+                            <div class="col-md-6">
+                                    
+                                    
+                                <span class="mb-0 text-muted">
+                                    {% if msg %}
+                                        <i class="fas fa-circle text-c-blue f-10 m-r-15"></i>
+                                        {{ msg | safe }}
+                                    {% else %}
+                                        <i class="fas fa-circle text-c-green f-10 m-r-15"></i> 
+                                        All your bags are here !
+                                    {% endif %} 
+                                </span>
+                            </div>
+                            
+                            <br/>
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <th> Bid </th>
+                                    <th> Type</th>
+                                    <th> Color </th>
+                                    <th> Designer's name</th>
+                                    <th> Operation </th>
+                                </thead>
+                                <tbody>
+                                {% for id in ids %}
+                                    {% if id.already_rented == 1 %}
+                                    <form role="form" method="post" action="">
+                                        {% csrf_token %} 
+                                        <input type="hidden" name="bag_id" value={{ id.bid }}>
+                                        <tr>
+                                            <td>{{ id.bid }}</td>
+                                            <td>{{ id.btype }}</td>
+                                            <td>{{ id.color }}</td>
+                                            <td>{{ id.did.name }}</td>
+                                            <td>
+                                                <button type="submit" class="btn btn-warning"> 退回 </a>
+                                            </td>
+                                        </tr>
+                                    </form>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
