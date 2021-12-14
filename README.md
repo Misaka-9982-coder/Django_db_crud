@@ -65,11 +65,11 @@ lease ( <u>id</u>, bag_id, customer_id, start_date, back_date, insure_or_not )
 
 **ER图** 如下：
 
-![image-20211213230607677](\img\image-20211213230607677.png)
+![image-20211213230607677](/img/image-20211213230607677.png)
 
 Navicat 模型图如下：
 
-![](\img\image-20211213230919977.png)
+![](/img/image-20211213230919977.png)
 
 
 
@@ -221,15 +221,15 @@ def bag_views(request):
 
 创建如下前端页面：
 
-![image-20211213232908806](\img\image-20211213232908806.png)
+![image-20211213232908806](/img/image-20211213232908806.png)
 
 输入设计师 Coach 的名字，得如下结果：
 
-![image-20211213233003406](\img\image-20211213233003406.png)
+![image-20211213233003406](/img/image-20211213233003406.png)
 
 异常测试：
 
-![image-20211213233109973](\img\image-20211213233109973.png)
+![image-20211213233109973](/img/image-20211213233109973.png)
 
 ##### 输入客户 id 查询每个客户每个客户所有手袋的租赁时间。
 
