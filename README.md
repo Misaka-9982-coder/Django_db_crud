@@ -1,9 +1,5 @@
-###  深圳大学数据库实验四
-### Using mysql and php to implement the Leasing Luxury Database system
-
-
-
-#### 界面效果![请添加图片描述](https://img-blog.csdnimg.cn/c0ef56f5af854a2a95cdaf7768432e64.gif)
+#### 界面效果
+![请添加图片描述](https://img-blog.csdnimg.cn/c0ef56f5af854a2a95cdaf7768432e64.gif)
 ### 模板源自[Appseed](https://appseed.us/) 的 [Datta Able Django](https://appseed.us/admin-dashboards/django-datta-able)
 
 在`setting.py`中修改默认数据库
