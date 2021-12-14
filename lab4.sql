@@ -324,35 +324,6 @@ delimiter;
 
 /*
     存储过程
-    按照用户 id 计算 用户每个租赁交易应支付 账单金额 从小到大排序
-    传入参数为用户 id
-*/
-delimiter //
-create procedure report_customer_amount2(in customer_id int(32))
-begin
-    select 
-        c.last_name as 'Last Name',
-        c.first_name as 'First Name',
-        d.name as 'Manufacturer',
-        b.btype as 'Name',
-        datediff( r.date_returned, r.date_rented) as 'totalDays',
-        (d.price + r.optional_insurance) 
-            * datediff( r.date_returned, r.date_rented) as 'Cost'
-    from rentals as r 
-    left join customer as c 
-    on r.cid = c.cid 
-    left join bag as b 
-    on r.bid = b.bid 
-    left join designer as d 
-    on d.did = b.did 
-    where r.cid = customer_id
-    order by Cost desc;
-    
-end //
-delimiter;
-
-/*
-    存储过程
     按照用户 id 计算 用户所有租赁交易应支付 账单金额 
     传入参数为用户 id
 */
